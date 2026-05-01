@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Noto+Serif+JP:wght@300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #03020a;
+  --abyss: #07050f;
+  --dusk: #0e0a1a;
+  --crimson: #8b0000;
+  --pale-red: #e8a0a0;
+  --ghost: #f0eaf8;
+  --gold: #c9a84c;
+  --spirit: #7b8fc4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--void);
+  color: var(--ghost);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* Vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--crimson);
+  border-radius: 2px;
+}
+
+/* Blood drip animation for decorative elements */
+@keyframes drip {
+  0% { height: 0; opacity: 0; }
+  20% { opacity: 1; }
+  100% { height: 40px; opacity: 0; }
+}
+
+.blood-drip::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--crimson), transparent);
+  animation: drip 3s ease-in infinite;
+}
+
+/* Glitch effect for text */
+@keyframes glitch {
+  0%, 90%, 100% { clip-path: none; transform: none; }
+  91% { clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0 30%); transform: translate(-2px); }
+  92% { clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); transform: translate(2px); }
+  93% { clip-path: none; transform: none; }
+}
+
+.glitch {
+  animation: glitch 8s infinite;
+}
+
+/* Floating particles */
+@keyframes particle-float {
+  0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-100px) translateX(50px) rotate(360deg); opacity: 0; }
+}
+
+.particle {
+  position: fixed;
+  pointer-events: none;
+  animation: particle-float linear infinite;
+}
+
+/* Oracle text glow */
+.oracle-glow {
+  text-shadow: 0 0 20px rgba(201, 168, 76, 0.6), 0 0 40px rgba(201, 168, 76, 0.3);
+}
+
+.crimson-glow {
+  text-shadow: 0 0 20px rgba(139, 0, 0, 0.8), 0 0 40px rgba(192, 57, 43, 0.4);
+}
+
+.spirit-glow {
+  text-shadow: 0 0 15px rgba(123, 143, 196, 0.7);
+}
+
+/* Red line decorators */
+.ritual-border {
+  border-image: linear-gradient(to right, transparent, var(--crimson), transparent) 1;
+}
+
+/* Input dark style */
+.dream-input {
+  background: rgba(7, 5, 15, 0.8);
+  border: 1px solid rgba(139, 0, 0, 0.3);
+  color: var(--ghost);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.dream-input:focus {
+  outline: none;
+  border-color: rgba(139, 0, 0, 0.7);
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.dream-input::placeholder {
+  color: rgba(240, 234, 248, 0.25);
+  font-style: italic;
+}
+
+/* Red separator */
+.sep {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(139,0,0,0.6), transparent);
+}
